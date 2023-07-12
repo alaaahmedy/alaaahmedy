@@ -34,7 +34,7 @@ TABLE OF CONTENTS
 @import url(main.css);
 body {
     font-family: 'Poppins', sans-serif;
-    color: #343434;
+    color: #00FF00;
     font-weight: 400;
 }
 
@@ -184,7 +184,7 @@ p {
 
 .buton-bg:hover {
     background: transparent !important;
-    color: #343434 !important;
+    color: #00FF00 !important;
 }
 
 /* -------------------------------------------------------
