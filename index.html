@@ -14,14 +14,23 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800" rel="stylesheet">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/et-line.css">
     <link rel="stylesheet" href="css/style.css">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <![endif]-->
+    <style>
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -47,8 +56,9 @@
             </div>
         </div>
     </nav>
-    <section id="home" class="header" data-scroll-index="0" style="background-image: url(img/bg.jpg);" data-stellar-background-ratio="0.8">
+    <section id="home" class="header" data-scroll-index="0" style="background: black;">
         <div id="particles-js"></div>
+        <canvas id="matrix-canvas"></canvas>
         <div class="v-middle">
             <div class="container">
                 <div class="row">
@@ -64,19 +74,19 @@
                         </h1>
                         <div class="social-icon">
                             <a href="#0">
-                                <span><i class="fab fa-facebook" aria-hidden="true"></i></span>
+                                <span><i class="fa fa-facebook" aria-hidden="true"></i></span>
                             </a>
                             <a href="#0">
-                                <span><i class="fab fa-twitter" aria-hidden="true"></i></span>
+                                <span><i class="fa fa-twitter" aria-hidden="true"></i></span>
                             </a>
                             <a href="#0">
-                                <span><i class="fab fa-linkedin" aria-hidden="true"></i></span>
+                                <span><i class="fa fa-linkedin" aria-hidden="true"></i></span>
                             </a>
                             <a href="#0">
-                                <span><i class="fab fa-behance" aria-hidden="true"></i></span>
+                                <span><i class="fa fa-behance" aria-hidden="true"></i></span>
                             </a>
                             <a href="#0">
-                                <span><i class="fab fa-youtube" aria-hidden="true"></i></span>
+                                <span><i class="fa fa-youtube" aria-hidden="true"></i></span>
                             </a>
                         </div>
                     </div>
@@ -209,8 +219,153 @@
     <script src="js/jquery.waypoints.min.js"></script>
     <script src="js/jquery.counterup.min.js"></script>
     <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/particles.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 200,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#ffffff'
+                },
+                shape: {
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    },
+                    polygon: {
+                        nb_sides: 5
+                    },
+                    image: {
+                        src: 'img/github.svg',
+                        width: 100,
+                        height: 100
+                    }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false,
+                    anim: {
+                        enable: false,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 5,
+                    random: true,
+                    anim: {
+                        enable: false,
+                        speed: 40,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ffffff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'repulse'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 400,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 400,
+                        size: 40,
+                        duration: 2,
+                        opacity: 8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+    <script>
+        // Matrix Animation
+        var canvas = document.getElementById('matrix-canvas');
+        var ctx = canvas.getContext('2d');
+
+        var W = window.innerWidth;
+        var H = window.innerHeight;
+        canvas.width = W;
+        canvas.height = H;
+        var fontSize = 14;
+        var colSize = Math.floor(W / fontSize);
+        var columns = Array(colSize).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, W, H);
+
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (var i = 0; i < columns.length; i++) {
+                var text = String.fromCharCode(Math.floor(Math.random() * 128));
+                ctx.fillText(text, i * fontSize, columns[i] * fontSize);
+
+                if (columns[i] * fontSize > H && Math.random() > 0.975) {
+                    columns[i] = 0;
+                }
+
+                columns[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 60);
+    </script>
     <script src="js/validator.js"></script>
     <script src="js/custom.js"></script>
 </body>
