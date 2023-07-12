@@ -431,7 +431,7 @@ p {
     height: 100%;
     width: 10%;
     border-radius: 5px;
-    background-color: #1c1c1c;
+    background-color: #00FF00;
     -webkit-transition: all 1s;
     transition: all 1s;
 }
